@@ -28,9 +28,7 @@ class _ListScreenState<W extends Widget, T> extends State<ListScreen<W, T>> {
               itemCount: snapshot.data?.length ?? 0,
               itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
-                  onTap: () {
-                    widget.strategy.onTap(context, index);
-                  },
+                  onTap: () => widget.strategy.onTap(context, index),
                   child:
                       widget.strategy.itemWidgetBuilder(snapshot.data![index]),
                 );

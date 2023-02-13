@@ -5,7 +5,7 @@ class FormStrategy {
   final List<Widget> views;
   final Future Function() submit;
   final String submitButtonTitle;
-  final ButtonStyle Function(BuildContext) submitButtonStyle;
+  final ButtonStyle submitButtonStyle;
 
   FormStrategy(
     this.title,

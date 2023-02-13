@@ -20,8 +20,10 @@ class FormScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: strategy.views +
                 [
-                  SizedBox(height: 8),
-                  strategy.submitButton,
+                  TextButton(
+                    onPressed: strategy.submit,
+                    child: Text(strategy.submitButtonTitle),
+                  ),
                 ],
           ),
         ),

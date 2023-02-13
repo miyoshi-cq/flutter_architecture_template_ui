@@ -21,6 +21,7 @@ class FormScreen extends StatelessWidget {
             children: strategy.views +
                 [
                   TextButton(
+                    style: strategy.submitButtonStyle(context),
                     onPressed: strategy.submit,
                     child: Text(strategy.submitButtonTitle),
                   ),

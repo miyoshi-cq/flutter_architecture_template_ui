@@ -15,14 +15,24 @@ class _FormScreenState extends State<FormScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final submitButton = TextButton(
-      style: widget.strategy.submitButtonStyle,
-      onPressed: () {
-        if (formKey.currentState!.validate()) {
-          widget.strategy.submit();
-        }
-      },
-      child: Text(widget.strategy.submitButtonTitle),
+    final edits = widget.strategy.views
+        .map((element) => Padding(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: element,
+            ))
+        .toList();
+
+    final submitButton = Padding(
+      padding: const EdgeInsets.all(0),
+      child: TextButton(
+        style: widget.strategy.submitButtonStyle,
+        onPressed: () {
+          if (formKey.currentState!.validate()) {
+            widget.strategy.submit();
+          }
+        },
+        child: Text(widget.strategy.submitButtonTitle),
+      ),
     );
 
     return Scaffold(
@@ -37,7 +47,7 @@ class _FormScreenState extends State<FormScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: widget.strategy.views..add(submitButton),
+              children: edits..add(submitButton),
             ),
           ),
         ),

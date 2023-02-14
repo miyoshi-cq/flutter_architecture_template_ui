@@ -15,6 +15,16 @@ class _FormScreenState extends State<FormScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final submitButton = TextButton(
+      style: widget.strategy.submitButtonStyle,
+      onPressed: () {
+        if (formKey.currentState!.validate()) {
+          widget.strategy.submit();
+        }
+      },
+      child: Text(widget.strategy.submitButtonTitle),
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.strategy.title),
@@ -27,18 +37,7 @@ class _FormScreenState extends State<FormScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: widget.strategy.views +
-                  [
-                    TextButton(
-                      style: widget.strategy.submitButtonStyle,
-                      onPressed: () {
-                        if (formKey.currentState!.validate()) {
-                          widget.strategy.submit();
-                        }
-                      },
-                      child: Text(widget.strategy.submitButtonTitle),
-                    ),
-                  ],
+              children: widget.strategy.views..add(submitButton),
             ),
           ),
         ),

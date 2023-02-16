@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class FormStrategy {
   final String title;
-  final List<Widget> views;
+  final List<TextFormField> views;
   final Future Function() submit;
   final String submitButtonTitle;
   final ButtonStyle submitButtonStyle;

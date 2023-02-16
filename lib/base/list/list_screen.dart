@@ -23,9 +23,7 @@ class _ListScreenState<W extends Widget, T> extends State<ListScreen<W, T>> {
           if (!snapshot.hasData) {
             return Container(
               alignment: Alignment.center,
-              child: const CircularProgressIndicator(
-                color: Colors.green,
-              ),
+              child: const CircularProgressIndicator(),
             );
           }
 

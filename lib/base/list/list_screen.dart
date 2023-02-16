@@ -20,6 +20,15 @@ class _ListScreenState<W extends Widget, T> extends State<ListScreen<W, T>> {
       body: FutureBuilder<List<T>>(
         future: widget.strategy.fetch,
         builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return Container(
+              alignment: Alignment.center,
+              child: const CircularProgressIndicator(
+                color: Colors.green,
+              ),
+            );
+          }
+
           return RefreshIndicator(
             onRefresh: () async {
               setState(() {});

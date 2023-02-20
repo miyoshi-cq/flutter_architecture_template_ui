@@ -11,9 +11,18 @@ class ListScreen<W extends Widget, T> extends StatefulWidget {
 }
 
 class _ListScreenState<W extends Widget, T> extends State<ListScreen<W, T>> {
+  final scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController.addListener(_scrollListener);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
         title: Text(widget.strategy.title),
       ),
@@ -32,6 +41,8 @@ class _ListScreenState<W extends Widget, T> extends State<ListScreen<W, T>> {
               setState(() {});
             },
             child: ListView.builder(
+              controller: scrollController,
+              padding: EdgeInsets.all(8),
               itemCount: snapshot.data?.length ?? 0,
               itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
@@ -51,5 +62,12 @@ class _ListScreenState<W extends Widget, T> extends State<ListScreen<W, T>> {
         },
       ),
     );
+  }
+
+  void _scrollListener() {
+    if (scrollController.position.pixels ==
+        scrollController.position.maxScrollExtent) {
+      print("call api");
+    }
   }
 }

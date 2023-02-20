@@ -22,7 +22,7 @@ class _TabContainerState extends State<TabContainer> {
   void _onItemTapped(int index) {
     setState(() {
       if (_selectedIndex == index) {
-        final screen = widget.screens[index] as ListScreen;
+        final screen = widget.screens[index] as ScrollToTop;
         screen.scrollToTop();
       } else {
         _selectedIndex = index;

@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_template_ui/base/list/list_strategy.dart';
 
-class ListScreen<W extends Widget, T> extends StatefulWidget {
-  final ListStrategy<W, T> strategy;
+mixin ScrollToTop {
   final scrollController = ScrollController();
-
-  ListScreen(this.strategy);
-
-  @override
-  State<ListScreen<W, T>> createState() => _ListScreenState<W, T>();
 
   void scrollToTop() {
     scrollController.animateTo(
@@ -17,6 +11,15 @@ class ListScreen<W extends Widget, T> extends StatefulWidget {
       curve: Curves.ease,
     );
   }
+}
+
+class ListScreen<W extends Widget, T> extends StatefulWidget with ScrollToTop {
+  final ListStrategy<W, T> strategy;
+
+  ListScreen(this.strategy);
+
+  @override
+  State<ListScreen<W, T>> createState() => _ListScreenState<W, T>();
 }
 
 class _ListScreenState<W extends Widget, T> extends State<ListScreen<W, T>> {

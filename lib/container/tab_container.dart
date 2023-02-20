@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_architecture_template_ui/base/list/list_screen.dart';
+import 'package:flutter_architecture_template_ui/utility/scroll_to_top.dart';
 
 class TabContainer extends StatefulWidget {
   final List<Widget> screens;

@@ -1,17 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_template_ui/base/list/list_strategy.dart';
-
-mixin ScrollToTop {
-  final scrollController = ScrollController();
-
-  void scrollToTop() {
-    scrollController.animateTo(
-      0,
-      duration: Duration(milliseconds: 300),
-      curve: Curves.ease,
-    );
-  }
-}
+import 'package:flutter_architecture_template_ui/utility/scroll_to_top.dart';
 
 class ListScreen<W extends Widget, T> extends StatefulWidget with ScrollToTop {
   final ListStrategy<W, T> strategy;

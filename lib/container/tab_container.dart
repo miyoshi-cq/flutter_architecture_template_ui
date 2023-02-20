@@ -27,7 +27,10 @@ class _TabContainerState extends State<TabContainer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: widget.screens[_selectedIndex],
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: widget.screens,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: widget.barItems,
         type: BottomNavigationBarType.fixed,

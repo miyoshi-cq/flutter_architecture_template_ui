@@ -11,8 +11,11 @@ class ListScreen<W extends Widget, T> extends StatefulWidget {
   State<ListScreen<W, T>> createState() => _ListScreenState<W, T>();
 
   void scrollToTop() {
-    scrollController.animateTo(0,
-        duration: Duration(milliseconds: 1), curve: Curves.linear);
+    scrollController.animateTo(
+      0,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.linear,
+    );
   }
 }
 

@@ -14,7 +14,7 @@ class ListScreen<W extends Widget, T> extends StatefulWidget {
     scrollController.animateTo(
       0,
       duration: Duration(milliseconds: 300),
-      curve: Curves.linear,
+      curve: Curves.ease,
     );
   }
 }

@@ -12,11 +12,11 @@ class ListScreen<W extends Widget, T> extends StatefulWidget {
 
 class _ListScreenState<W extends Widget, T> extends State<ListScreen<W, T>> {
   final scrollController = ScrollController();
-  Future<List<T>>? _future;
+  Future<List<T>>? _fetch;
 
   @override
   void initState() {
-    _future = widget.strategy.fetch;
+    _fetch = widget.strategy.fetch;
     super.initState();
     scrollController.addListener(_scrollListener);
   }
@@ -29,7 +29,7 @@ class _ListScreenState<W extends Widget, T> extends State<ListScreen<W, T>> {
         title: Text(widget.strategy.title),
       ),
       body: FutureBuilder<List<T>>(
-        future: _future,
+        future: _fetch,
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Container(
@@ -70,7 +70,7 @@ class _ListScreenState<W extends Widget, T> extends State<ListScreen<W, T>> {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
       setState(() {
-        _future = widget.strategy.fetch;
+        _fetch = widget.strategy.fetch;
       });
     }
   }

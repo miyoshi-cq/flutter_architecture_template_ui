@@ -7,7 +7,7 @@ class ListStrategy<W extends Widget, T> {
 
   final void Function(BuildContext context, int index, T item) onTap;
 
-  final Future<List<T>> fetch;
+  final Future<List<T>> Function(bool isAdditional) fetch;
 
   ListStrategy(
     this.title,

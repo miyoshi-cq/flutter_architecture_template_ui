@@ -16,7 +16,7 @@ class _ListScreenState<W extends Widget, T> extends State<ListScreen<W, T>> {
 
   @override
   void initState() {
-    _fetch = widget.strategy.fetch;
+    _fetch = widget.strategy.fetch(false);
     super.initState();
     scrollController.addListener(_scrollListener);
   }
@@ -70,7 +70,7 @@ class _ListScreenState<W extends Widget, T> extends State<ListScreen<W, T>> {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
       setState(() {
-        _fetch = widget.strategy.fetch;
+        _fetch = widget.strategy.fetch(true);
       });
     }
   }

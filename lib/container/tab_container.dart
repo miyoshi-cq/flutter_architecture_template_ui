@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_architecture_template_ui/base/list/list_screen.dart';
 
 class TabContainer extends StatefulWidget {
   final List<Widget> screens;
@@ -20,7 +21,12 @@ class _TabContainerState extends State<TabContainer> {
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      if (_selectedIndex == index) {
+        final screen = widget.screens[index] as ListScreen;
+        screen.scrollToTop();
+      } else {
+        _selectedIndex = index;
+      }
     });
   }
 

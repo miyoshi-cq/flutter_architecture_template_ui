@@ -3,22 +3,27 @@ import 'package:flutter_architecture_template_ui/base/list/list_strategy.dart';
 
 class ListScreen<W extends Widget, T> extends StatefulWidget {
   final ListStrategy<W, T> strategy;
+  final scrollController = ScrollController();
 
-  const ListScreen(this.strategy);
+  ListScreen(this.strategy);
 
   @override
   State<ListScreen<W, T>> createState() => _ListScreenState<W, T>();
+
+  void scrollToTop() {
+    scrollController.animateTo(0,
+        duration: Duration(milliseconds: 1), curve: Curves.linear);
+  }
 }
 
 class _ListScreenState<W extends Widget, T> extends State<ListScreen<W, T>> {
-  final scrollController = ScrollController();
   Future<List<T>>? _fetch;
 
   @override
   void initState() {
     _fetch = widget.strategy.fetch(false);
     super.initState();
-    scrollController.addListener(_scrollListener);
+    widget.scrollController.addListener(_scrollListener);
   }
 
   @override
@@ -40,7 +45,7 @@ class _ListScreenState<W extends Widget, T> extends State<ListScreen<W, T>> {
                   });
                 },
                 child: ListView.builder(
-                  controller: scrollController,
+                  controller: widget.scrollController,
                   padding: EdgeInsets.all(8),
                   itemCount: snapshot.data?.length ?? 0,
                   itemBuilder: (BuildContext context, int index) {
@@ -73,8 +78,8 @@ class _ListScreenState<W extends Widget, T> extends State<ListScreen<W, T>> {
   }
 
   void _scrollListener() {
-    if (scrollController.position.pixels ==
-        scrollController.position.maxScrollExtent) {
+    if (widget.scrollController.position.pixels ==
+        widget.scrollController.position.maxScrollExtent) {
       setState(() {
         _fetch = widget.strategy.fetch(true);
       });

@@ -31,6 +31,21 @@ class _ListScreenState<W extends Widget, T> extends State<ListScreen<W, T>> {
       body: FutureBuilder<List<T>>(
         future: _fetch,
         builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+              print("none");
+              break;
+            case ConnectionState.waiting:
+              print("waiting");
+              break;
+            case ConnectionState.active:
+              print("active");
+              break;
+            case ConnectionState.done:
+              print("done");
+              break;
+          }
+
           if (!snapshot.hasData) {
             return Container(
               alignment: Alignment.center,

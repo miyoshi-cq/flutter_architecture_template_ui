@@ -35,7 +35,9 @@ class _ListScreenState<W extends Widget, T> extends State<ListScreen<W, T>> {
             children: [
               RefreshIndicator(
                 onRefresh: () async {
-                  setState(() {});
+                  setState(() {
+                    _fetch = widget.strategy.fetch(false);
+                  });
                 },
                 child: ListView.builder(
                   controller: scrollController,

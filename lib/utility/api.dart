@@ -5,7 +5,7 @@ import 'dart:convert';
 
 class API {
   static Future<Response> request<Response>(Request request) async {
-    final url = Uri.parse(request.baseUrl + request.path);
+    final url = Uri.https(request.baseUrl, request.path, request.query);
 
     switch (request.method) {
       case HttpMethod.GET:

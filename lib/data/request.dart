@@ -1,5 +1,5 @@
-import 'package:flutter_architecture_template_ui/utility/request_item.dart';
-import 'package:flutter_architecture_template_ui/utility/http_method.dart';
+import 'package:flutter_architecture_template_ui/data/request_item.dart';
+import 'package:flutter_architecture_template_ui/data/http_method.dart';
 
 class Request<T extends RequestItem, R> {
   final String baseUrl;

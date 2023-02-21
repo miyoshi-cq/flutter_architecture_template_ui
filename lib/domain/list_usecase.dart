@@ -1,4 +1,4 @@
-import 'package:flutter_architecture_template_ui/utility/identifiable.dart';
+import 'package:flutter_architecture_template_ui/data/identifiable.dart';
 
 class ListUsecase<T extends Identifiable> {
   int lastId = 0;

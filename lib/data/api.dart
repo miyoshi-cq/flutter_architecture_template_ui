@@ -1,5 +1,5 @@
-import 'package:flutter_architecture_template_ui/utility/http_method.dart';
-import 'package:flutter_architecture_template_ui/utility/request.dart';
+import 'package:flutter_architecture_template_ui/data/http_method.dart';
+import 'package:flutter_architecture_template_ui/data/request.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 

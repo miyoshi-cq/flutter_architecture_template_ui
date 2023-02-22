@@ -58,7 +58,7 @@ class _FormScreenState extends State<FormScreen> {
                 ),
               ),
               Visibility(
-                visible: false,
+                visible: snapshot.connectionState == ConnectionState.waiting,
                 child: Container(
                   alignment: Alignment.center,
                   child: const CircularProgressIndicator(),

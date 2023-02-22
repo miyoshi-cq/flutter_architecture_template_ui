@@ -16,73 +16,72 @@ class _FormScreenState extends State<FormScreen> {
   bool isLoading = false;
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey.shade200,
-      appBar: AppBar(
-        title: Text(widget.strategy.title),
-      ),
-      body: FutureBuilder(
-        future: widget.strategy.fetch ?? Future(() => null),
-        builder: (context, snapshot) {
-          return Stack(
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                padding: const EdgeInsets.all(16),
-                child: Form(
-                  key: formKey,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: widget.strategy
-                          .views(snapshot.data)
-                          .map(
-                            (element) => Padding(
-                              padding: const EdgeInsets.only(bottom: 16.0),
-                              child: element,
-                            ),
-                          )
-                          .toList()
-                        ..add(
-                          Padding(
-                            padding: const EdgeInsets.all(0),
-                            child: TextButton(
-                              style: widget.strategy.submitButtonStyle,
-                              onPressed: () async {
-                                setState(() {
-                                  isLoading = true;
-                                });
-                                if (formKey.currentState!.validate()) {
-                                  await widget.strategy.submit();
-                                  widget.strategy.didComplete(context);
-                                }
-                                setState(() {
-                                  isLoading = false;
-                                });
-                              },
-                              child: Text(widget.strategy.submitButtonTitle),
+  Widget build(BuildContext context) => Scaffold(
+        backgroundColor: Colors.grey.shade200,
+        appBar: AppBar(
+          title: Text(widget.strategy.title),
+        ),
+        body: FutureBuilder(
+          future: widget.strategy.fetch ?? Future(() => null),
+          builder: (context, snapshot) {
+            return Stack(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  padding: const EdgeInsets.all(16),
+                  child: Form(
+                    key: formKey,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: widget.strategy
+                            .views(snapshot.data)
+                            .map(
+                              (element) => Padding(
+                                padding: const EdgeInsets.only(bottom: 16.0),
+                                child: element,
+                              ),
+                            )
+                            .toList()
+                          ..add(
+                            Padding(
+                              padding: const EdgeInsets.all(0),
+                              child: TextButton(
+                                style: widget.strategy.submitButtonStyle,
+                                onPressed: () async {
+                                  setState(() {
+                                    isLoading = true;
+                                  });
+                                  if (formKey.currentState!.validate()) {
+                                    await widget.strategy.submit();
+                                    widget.strategy.didComplete(context);
+                                  }
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+                                },
+                                child: Text(widget.strategy.submitButtonTitle),
+                              ),
                             ),
                           ),
-                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Visibility(
-                visible: snapshot.connectionState == ConnectionState.waiting ||
-                    isLoading,
-                child: Container(
-                  alignment: Alignment.center,
-                  child: const CircularProgressIndicator(),
-                ),
-              )
-            ],
-          );
-        },
-      ),
-    );
-  }
+                Visibility(
+                  visible:
+                      snapshot.connectionState == ConnectionState.waiting ||
+                          isLoading,
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: const CircularProgressIndicator(),
+                  ),
+                )
+              ],
+            );
+          },
+        ),
+      );
 }

@@ -31,18 +31,16 @@ class _TabContainerState extends State<TabContainer> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(
-        index: _selectedIndex,
-        children: widget.screens,
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: widget.barItems,
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-      ),
-    );
-  }
+  Widget build(BuildContext context) => Scaffold(
+        body: IndexedStack(
+          index: _selectedIndex,
+          children: widget.screens,
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: widget.barItems,
+          type: BottomNavigationBarType.fixed,
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+        ),
+      );
 }

@@ -39,6 +39,7 @@ class _ListScreenState<W extends Widget, T> extends State<ListScreen<W, T>> {
                 },
                 child: widget.strategy.type == CollectionType.grid
                     ? GridView.count(
+                        controller: widget.scrollController,
                         crossAxisCount: 3,
                         children: List.generate(100, (index) {
                           return Container(

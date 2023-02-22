@@ -25,37 +25,6 @@ class _FormScreenState extends State<FormScreen> {
       body: FutureBuilder(
         future: widget.strategy.fetch ?? Future(() => null),
         builder: (context, snapshot) {
-          final submitButton = Padding(
-            padding: const EdgeInsets.all(0),
-            child: TextButton(
-              style: widget.strategy.submitButtonStyle,
-              onPressed: () async {
-                setState(() {
-                  isLoading = true;
-                });
-                if (formKey.currentState!.validate()) {
-                  await widget.strategy.submit();
-                  widget.strategy.didComplete(context);
-                }
-                setState(() {
-                  isLoading = false;
-                });
-              },
-              child: Text(widget.strategy.submitButtonTitle),
-            ),
-          );
-
-          final edits = widget.strategy
-              .views(snapshot.data)
-              .map((element) => Padding(
-                    padding: const EdgeInsets.only(bottom: 16.0),
-                    child: element,
-                  ))
-              .toList();
-
-          final visibleIndicator =
-              snapshot.connectionState == ConnectionState.waiting || isLoading;
-
           return Stack(
             children: [
               Container(
@@ -68,13 +37,43 @@ class _FormScreenState extends State<FormScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: edits..add(submitButton),
+                      children: widget.strategy
+                          .views(snapshot.data)
+                          .map(
+                            (element) => Padding(
+                              padding: const EdgeInsets.only(bottom: 16.0),
+                              child: element,
+                            ),
+                          )
+                          .toList()
+                        ..add(
+                          Padding(
+                            padding: const EdgeInsets.all(0),
+                            child: TextButton(
+                              style: widget.strategy.submitButtonStyle,
+                              onPressed: () async {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                if (formKey.currentState!.validate()) {
+                                  await widget.strategy.submit();
+                                  widget.strategy.didComplete(context);
+                                }
+                                setState(() {
+                                  isLoading = false;
+                                });
+                              },
+                              child: Text(widget.strategy.submitButtonTitle),
+                            ),
+                          ),
+                        ),
                     ),
                   ),
                 ),
               ),
               Visibility(
-                visible: visibleIndicator,
+                visible: snapshot.connectionState == ConnectionState.waiting ||
+                    isLoading,
                 child: Container(
                   alignment: Alignment.center,
                   child: const CircularProgressIndicator(),

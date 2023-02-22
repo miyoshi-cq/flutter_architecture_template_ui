@@ -15,13 +15,6 @@ class _FormScreenState extends State<FormScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final edits = widget.strategy.views
-        .map((element) => Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
-              child: element,
-            ))
-        .toList();
-
     final submitButton = Padding(
       padding: const EdgeInsets.all(0),
       child: TextButton(
@@ -40,27 +33,40 @@ class _FormScreenState extends State<FormScreen> {
       appBar: AppBar(
         title: Text(widget.strategy.title),
       ),
-      body: Stack(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(16),
-            child: Form(
-              key: formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: edits..add(submitButton),
+      body: FutureBuilder(
+        future: widget.strategy.fetch ?? Future(() => null),
+        builder: (context, snapshot) {
+          final edits = widget.strategy
+              .views(snapshot.data)
+              .map((element) => Padding(
+                    padding: const EdgeInsets.only(bottom: 16.0),
+                    child: element,
+                  ))
+              .toList();
+
+          return Stack(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(16),
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: edits..add(submitButton),
+                  ),
+                ),
               ),
-            ),
-          ),
-          Visibility(
-            visible: false,
-            child: Container(
-              alignment: Alignment.center,
-              child: const CircularProgressIndicator(),
-            ),
-          )
-        ],
+              Visibility(
+                visible: false,
+                child: Container(
+                  alignment: Alignment.center,
+                  child: const CircularProgressIndicator(),
+                ),
+              )
+            ],
+          );
+        },
       ),
     );
   }

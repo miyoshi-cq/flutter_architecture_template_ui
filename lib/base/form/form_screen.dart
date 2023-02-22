@@ -62,10 +62,12 @@ class _FormScreenState extends State<FormScreen> {
                 padding: const EdgeInsets.all(16),
                 child: Form(
                   key: formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: edits..add(submitButton),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: edits..add(submitButton),
+                    ),
                   ),
                 ),
               ),

@@ -13,6 +13,8 @@ class FormScreen extends StatefulWidget {
 class _FormScreenState extends State<FormScreen> {
   final formKey = GlobalKey<FormState>();
 
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,9 +29,16 @@ class _FormScreenState extends State<FormScreen> {
             padding: const EdgeInsets.all(0),
             child: TextButton(
               style: widget.strategy.submitButtonStyle,
-              onPressed: () {
+              onPressed: () async {
+                setState(() {
+                  isLoading = true;
+                });
                 if (formKey.currentState!.validate()) {
-                  widget.strategy.submit();
+                  await widget.strategy.submit();
+
+                  setState(() {
+                    isLoading = false;
+                  });
                 }
               },
               child: Text(widget.strategy.submitButtonTitle),
@@ -45,7 +54,7 @@ class _FormScreenState extends State<FormScreen> {
               .toList();
 
           final visibleIndicator =
-              snapshot.connectionState == ConnectionState.waiting;
+              snapshot.connectionState == ConnectionState.waiting || isLoading;
 
           return Stack(
             children: [

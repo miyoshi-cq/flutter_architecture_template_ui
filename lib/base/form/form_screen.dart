@@ -40,18 +40,27 @@ class _FormScreenState extends State<FormScreen> {
       appBar: AppBar(
         title: Text(widget.strategy.title),
       ),
-      body: Center(
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          child: Form(
-            key: formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: edits..add(submitButton),
+      body: Stack(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(16),
+            child: Form(
+              key: formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: edits..add(submitButton),
+              ),
             ),
           ),
-        ),
+          Visibility(
+            visible: false,
+            child: Container(
+              alignment: Alignment.center,
+              child: const CircularProgressIndicator(),
+            ),
+          )
+        ],
       ),
     );
   }

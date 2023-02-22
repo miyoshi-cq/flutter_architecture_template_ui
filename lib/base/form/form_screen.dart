@@ -35,6 +35,7 @@ class _FormScreenState extends State<FormScreen> {
                 });
                 if (formKey.currentState!.validate()) {
                   await widget.strategy.submit();
+                  widget.strategy.didComplete(context);
                 }
                 setState(() {
                   isLoading = false;

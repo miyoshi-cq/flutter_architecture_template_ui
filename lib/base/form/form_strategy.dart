@@ -5,6 +5,7 @@ class FormStrategy<T> {
   final List<TextFormField> Function(T) views;
   final Future<T>? fetch;
   final Future Function() submit;
+  final void Function(BuildContext) didComplete;
   final String submitButtonTitle;
   final ButtonStyle submitButtonStyle;
 
@@ -13,6 +14,7 @@ class FormStrategy<T> {
     this.views,
     this.fetch,
     this.submit,
+    this.didComplete,
     this.submitButtonTitle,
     this.submitButtonStyle,
   );

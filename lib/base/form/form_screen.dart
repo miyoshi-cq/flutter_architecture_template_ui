@@ -15,19 +15,6 @@ class _FormScreenState extends State<FormScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final submitButton = Padding(
-      padding: const EdgeInsets.all(0),
-      child: TextButton(
-        style: widget.strategy.submitButtonStyle,
-        onPressed: () {
-          if (formKey.currentState!.validate()) {
-            widget.strategy.submit();
-          }
-        },
-        child: Text(widget.strategy.submitButtonTitle),
-      ),
-    );
-
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
@@ -36,6 +23,19 @@ class _FormScreenState extends State<FormScreen> {
       body: FutureBuilder(
         future: widget.strategy.fetch ?? Future(() => null),
         builder: (context, snapshot) {
+          final submitButton = Padding(
+            padding: const EdgeInsets.all(0),
+            child: TextButton(
+              style: widget.strategy.submitButtonStyle,
+              onPressed: () {
+                if (formKey.currentState!.validate()) {
+                  widget.strategy.submit();
+                }
+              },
+              child: Text(widget.strategy.submitButtonTitle),
+            ),
+          );
+
           final edits = widget.strategy
               .views(snapshot.data)
               .map((element) => Padding(
@@ -43,6 +43,9 @@ class _FormScreenState extends State<FormScreen> {
                     child: element,
                   ))
               .toList();
+
+          final visibleIndicator =
+              snapshot.connectionState == ConnectionState.waiting;
 
           return Stack(
             children: [
@@ -58,7 +61,7 @@ class _FormScreenState extends State<FormScreen> {
                 ),
               ),
               Visibility(
-                visible: snapshot.connectionState == ConnectionState.waiting,
+                visible: visibleIndicator,
                 child: Container(
                   alignment: Alignment.center,
                   child: const CircularProgressIndicator(),

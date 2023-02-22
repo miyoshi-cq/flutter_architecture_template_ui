@@ -59,6 +59,8 @@ class _FormScreenState extends State<FormScreen> {
           return Stack(
             children: [
               Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
                 padding: const EdgeInsets.all(16),
                 child: Form(
                   key: formKey,

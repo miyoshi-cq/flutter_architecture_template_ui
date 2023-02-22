@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class FormStrategy {
+class FormStrategy<T> {
   final String title;
-  final List<TextFormField> Function(dynamic) views;
-  final Future<dynamic>? fetch;
+  final List<TextFormField> Function(T) views;
+  final Future<T>? fetch;
   final Future Function() submit;
   final String submitButtonTitle;
   final ButtonStyle submitButtonStyle;

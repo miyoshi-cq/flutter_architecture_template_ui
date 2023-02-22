@@ -36,6 +36,7 @@ class _FormScreenState extends State<FormScreen> {
     );
 
     return Scaffold(
+      backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
         title: Text(widget.strategy.title),
       ),

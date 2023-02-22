@@ -35,11 +35,10 @@ class _FormScreenState extends State<FormScreen> {
                 });
                 if (formKey.currentState!.validate()) {
                   await widget.strategy.submit();
-
-                  setState(() {
-                    isLoading = false;
-                  });
                 }
+                setState(() {
+                  isLoading = false;
+                });
               },
               child: Text(widget.strategy.submitButtonTitle),
             ),

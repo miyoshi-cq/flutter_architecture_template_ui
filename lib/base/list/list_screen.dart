@@ -14,6 +14,8 @@ class ListScreen<W extends Widget, T> extends StatefulWidget with ScrollToTop {
 class _ListScreenState<W extends Widget, T> extends State<ListScreen<W, T>> {
   Future<List<T>>? _fetch;
 
+  final isGrid = true;
+
   @override
   void initState() {
     _fetch = widget.strategy.fetch(false);
@@ -37,22 +39,32 @@ class _ListScreenState<W extends Widget, T> extends State<ListScreen<W, T>> {
                     _fetch = widget.strategy.fetch(false);
                   });
                 },
-                child: ListView.builder(
-                  controller: widget.scrollController,
-                  padding: EdgeInsets.all(8),
-                  itemCount: snapshot.data?.length ?? 0,
-                  itemBuilder: (BuildContext context, int index) => GestureDetector(
-                      onTap: () => {
-                        widget.strategy.onTap(
-                          context,
-                          index,
-                          snapshot.data![index],
-                        )
-                      },
-                      child: widget.strategy
-                          .itemWidgetBuilder(snapshot.data![index]),
-                    ),
-                ),
+                child: isGrid
+                    ? GridView.count(
+                        crossAxisCount: 3,
+                        children: List.generate(100, (index) {
+                          return CircleAvatar(
+                            child: Text("$index"),
+                          );
+                        }),
+                      )
+                    : ListView.builder(
+                        controller: widget.scrollController,
+                        padding: EdgeInsets.all(8),
+                        itemCount: snapshot.data?.length ?? 0,
+                        itemBuilder: (BuildContext context, int index) =>
+                            GestureDetector(
+                          onTap: () => {
+                            widget.strategy.onTap(
+                              context,
+                              index,
+                              snapshot.data![index],
+                            )
+                          },
+                          child: widget.strategy
+                              .itemWidgetBuilder(snapshot.data![index]),
+                        ),
+                      ),
               ),
               Visibility(
                 visible: snapshot.connectionState == ConnectionState.waiting,

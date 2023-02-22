@@ -37,35 +37,19 @@ class _ListScreenState<W extends Widget, T> extends State<ListScreen<W, T>> {
                     _fetch = widget.strategy.fetch(false);
                   });
                 },
-                child: widget.strategy.type == CollectionType.grid
+                child: widget.strategy.rowCount > 1
                     ? GridView.count(
                         controller: widget.scrollController,
-                        crossAxisCount: 3,
-                        children: List.generate(100, (index) {
-                          return Container(
-                            padding: EdgeInsets.all(8),
-                            child: CircleAvatar(
-                              child: Text("$index"),
-                            ),
-                          );
-                        }),
+                        crossAxisCount: widget.strategy.rowCount,
+                        children: List.generate(snapshot.data?.length ?? 0,
+                            (index) => _cell(index, snapshot.data![index])),
                       )
                     : ListView.builder(
                         controller: widget.scrollController,
                         padding: EdgeInsets.all(8),
                         itemCount: snapshot.data?.length ?? 0,
                         itemBuilder: (BuildContext context, int index) =>
-                            GestureDetector(
-                          onTap: () => {
-                            widget.strategy.onTap(
-                              context,
-                              index,
-                              snapshot.data![index],
-                            )
-                          },
-                          child: widget.strategy
-                              .itemWidgetBuilder(snapshot.data![index]),
-                        ),
+                            _cell(index, snapshot.data![index]),
                       ),
               ),
               Visibility(
@@ -78,6 +62,17 @@ class _ListScreenState<W extends Widget, T> extends State<ListScreen<W, T>> {
             ],
           ),
         ),
+      );
+
+  Widget _cell(int index, T data) => GestureDetector(
+        onTap: () => {
+          widget.strategy.onTap(
+            context,
+            index,
+            data,
+          )
+        },
+        child: widget.strategy.itemWidgetBuilder(data),
       );
 
   void _scrollListener() {

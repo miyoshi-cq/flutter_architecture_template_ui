@@ -14,8 +14,6 @@ class ListScreen<W extends Widget, T> extends StatefulWidget with ScrollToTop {
 class _ListScreenState<W extends Widget, T> extends State<ListScreen<W, T>> {
   Future<List<T>>? _fetch;
 
-  final isGrid = true;
-
   @override
   void initState() {
     _fetch = widget.strategy.fetch(false);
@@ -39,12 +37,15 @@ class _ListScreenState<W extends Widget, T> extends State<ListScreen<W, T>> {
                     _fetch = widget.strategy.fetch(false);
                   });
                 },
-                child: isGrid
+                child: widget.strategy.type == CollectionType.grid
                     ? GridView.count(
                         crossAxisCount: 3,
                         children: List.generate(100, (index) {
-                          return CircleAvatar(
-                            child: Text("$index"),
+                          return Container(
+                            padding: EdgeInsets.all(8),
+                            child: CircleAvatar(
+                              child: Text("$index"),
+                            ),
                           );
                         }),
                       )

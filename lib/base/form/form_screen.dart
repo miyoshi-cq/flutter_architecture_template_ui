@@ -46,6 +46,12 @@ class _FormScreenState extends State<FormScreen> {
                           .toList()
                         ..add(
                           Padding(
+                            padding: EdgeInsets.only(bottom: 16.0),
+                            child: AppFormField(["item1", "item2"]),
+                          ),
+                        )
+                        ..add(
+                          Padding(
                             padding: const EdgeInsets.all(0),
                             child: TextButton(
                               style: widget.strategy.submitButtonStyle,
@@ -81,4 +87,64 @@ class _FormScreenState extends State<FormScreen> {
           ),
         ),
       );
+}
+
+class AppFormField extends StatefulWidget {
+  final List<String> items;
+
+  AppFormField(this.items);
+
+  @override
+  State<AppFormField> createState() => _AppFormFieldState();
+}
+
+class _AppFormFieldState extends State<AppFormField> {
+  String? _selected;
+
+  @override
+  Widget build(BuildContext context) {
+    return FormField<String>(
+      builder: (field) => InputDecorator(
+        decoration: InputDecoration(
+          labelText: "リスト",
+          filled: true,
+          fillColor: Colors.white,
+          border: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.grey.shade400,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.grey.shade400,
+            ),
+          ),
+          contentPadding: EdgeInsets.all(8),
+        ),
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton<String>(
+            items: widget.items.map<DropdownMenuItem<String>>(
+              (value) {
+                return DropdownMenuItem(
+                  value: value,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(value),
+                    ],
+                  ),
+                );
+              },
+            ).toList(),
+            onChanged: (value) {
+              setState(() {
+                _selected = value;
+              });
+            },
+            value: _selected,
+          ),
+        ),
+      ),
+    );
+  }
 }

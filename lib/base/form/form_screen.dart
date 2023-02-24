@@ -47,7 +47,7 @@ class _FormScreenState extends State<FormScreen> {
                         ..add(
                           Padding(
                             padding: EdgeInsets.only(bottom: 16.0),
-                            child: AppFormField(["item1", "item2"]),
+                            child: PullDownFormField(["item1", "item2"]),
                           ),
                         )
                         ..add(
@@ -89,16 +89,16 @@ class _FormScreenState extends State<FormScreen> {
       );
 }
 
-class AppFormField extends StatefulWidget {
+class PullDownFormField extends StatefulWidget {
   final List<String> items;
 
-  AppFormField(this.items);
+  PullDownFormField(this.items);
 
   @override
-  State<AppFormField> createState() => _AppFormFieldState();
+  State<PullDownFormField> createState() => _PullDownFormFieldState();
 }
 
-class _AppFormFieldState extends State<AppFormField> {
+class _PullDownFormFieldState extends State<PullDownFormField> {
   String? _selected;
 
   @override

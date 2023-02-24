@@ -72,13 +72,7 @@ class _ListScreenState<W extends Widget, T> extends State<ListScreen<W, T>> {
       );
 
   Widget _cell(int index, T data) => GestureDetector(
-        onTap: () => {
-          widget.strategy.onTap(
-            context,
-            index,
-            data,
-          )
-        },
+        onTap: () => {widget.strategy.onTap(context, index, data)},
         child: widget.strategy.itemWidgetBuilder(data),
       );
 

@@ -123,19 +123,14 @@ class _AppFormFieldState extends State<AppFormField> {
         ),
         child: DropdownButtonHideUnderline(
           child: DropdownButton<String>(
-            items: widget.items.map<DropdownMenuItem<String>>(
-              (value) {
-                return DropdownMenuItem(
-                  value: value,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(value),
-                    ],
-                  ),
-                );
-              },
-            ).toList(),
+            items: widget.items
+                .map((value) => DropdownMenuItem(
+                    value: value,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [Text(value)],
+                    )))
+                .toList(),
             onChanged: (value) {
               setState(() {
                 _selected = value;

@@ -1,36 +1,8 @@
 import 'package:flutter/material.dart';
 
-class DropdownFormField extends StatefulWidget {
-  final List<String> items;
-
-  DropdownFormField(this.items);
-
-  @override
-  State<DropdownFormField> createState() => _DropdownFormFieldState();
-}
-
-class _DropdownFormFieldState extends State<DropdownFormField> {
-  String? _selected;
-
-  @override
-  Widget build(BuildContext context) {
-    return DropdownFormFieldWidget(
-      widget.items,
-      _selected,
-      ((value) {
-        setState(() {
-          _selected = value;
-        });
-      }),
-    );
-  }
-}
-
-class DropdownFormFieldWidget extends FormField<String> {
-  DropdownFormFieldWidget(
+class DropdownFormField extends FormField<String> {
+  DropdownFormField(
     List<String> items,
-    String? selected,
-    ValueChanged<String?> onChanged,
   ) : super(
           builder: (field) => InputDecorator(
             decoration: InputDecoration(
@@ -59,8 +31,8 @@ class DropdownFormFieldWidget extends FormField<String> {
                           children: [Text(value)],
                         )))
                     .toList(),
-                onChanged: onChanged,
-                value: selected,
+                onChanged: field.didChange,
+                value: field.value,
               ),
             ),
           ),

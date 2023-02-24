@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_template_ui/base/form/form_strategy.dart';
+import 'package:flutter_architecture_template_ui/component/dropdown_form_field.dart';
 
 class FormScreen extends StatefulWidget {
   final FormStrategy strategy;
@@ -47,7 +48,7 @@ class _FormScreenState extends State<FormScreen> {
                         ..add(
                           Padding(
                             padding: EdgeInsets.only(bottom: 16.0),
-                            child: PullDownFormField(["item1", "item2"]),
+                            child: DropdownFormField(["item1", "item2"]),
                           ),
                         )
                         ..add(
@@ -87,59 +88,4 @@ class _FormScreenState extends State<FormScreen> {
           ),
         ),
       );
-}
-
-class PullDownFormField extends StatefulWidget {
-  final List<String> items;
-
-  PullDownFormField(this.items);
-
-  @override
-  State<PullDownFormField> createState() => _PullDownFormFieldState();
-}
-
-class _PullDownFormFieldState extends State<PullDownFormField> {
-  String? _selected;
-
-  @override
-  Widget build(BuildContext context) {
-    return FormField<String>(
-      builder: (field) => InputDecorator(
-        decoration: InputDecoration(
-          labelText: "リスト",
-          filled: true,
-          fillColor: Colors.white,
-          border: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.grey.shade400,
-            ),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.grey.shade400,
-            ),
-          ),
-          contentPadding: EdgeInsets.all(8),
-        ),
-        child: DropdownButtonHideUnderline(
-          child: DropdownButton<String>(
-            items: widget.items
-                .map((value) => DropdownMenuItem(
-                    value: value,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [Text(value)],
-                    )))
-                .toList(),
-            onChanged: (value) {
-              setState(() {
-                _selected = value;
-              });
-            },
-            value: _selected,
-          ),
-        ),
-      ),
-    );
-  }
 }

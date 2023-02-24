@@ -47,12 +47,6 @@ class _FormScreenState extends State<FormScreen> {
                           .toList()
                         ..add(
                           Padding(
-                            padding: EdgeInsets.only(bottom: 16.0),
-                            child: DropdownFormField(["item1", "item2"]),
-                          ),
-                        )
-                        ..add(
-                          Padding(
                             padding: const EdgeInsets.all(0),
                             child: TextButton(
                               style: widget.strategy.submitButtonStyle,

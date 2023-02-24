@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class FormStrategy<T> {
   final String title;
-  final List<TextFormField> Function(T) views;
+  final List<Widget> Function(T) views;
   final Future<T>? fetch;
   final Future Function() submit;
   final void Function(BuildContext) didComplete;

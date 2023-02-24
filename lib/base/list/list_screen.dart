@@ -53,7 +53,7 @@ class _ListScreenState<W extends Widget, T> extends State<ListScreen<W, T>> {
                         controller: widget.scrollController,
                         padding: EdgeInsets.all(8),
                         itemCount: snapshot.data?.length ?? 0,
-                        itemBuilder: (BuildContext context, int index) => _cell(
+                        itemBuilder: (_, int index) => _cell(
                           index,
                           snapshot.data![index],
                         ),

@@ -44,10 +44,10 @@ class DropdownFormField extends FormField<String> {
 
   final TextEditingController _controller;
 
-  String? get text => _controller.text;
+  String get text => _controller.text;
 
-  set text(String? s) {
-    _controller.text = s!;
+  set text(String s) {
+    _controller.text = s;
   }
 
   @override
@@ -60,12 +60,12 @@ class _DropdownFormFieldState extends FormFieldState<String> {
   @override
   void initState() {
     super.initState();
-    _dropdownFormField._controller.text = _dropdownFormField.initialValue!;
+    _dropdownFormField._controller.text = _dropdownFormField.initialValue ?? "";
   }
 
   @override
   void didChange(String? value) {
     super.didChange(value);
-    _dropdownFormField._controller.text = value!;
+    _dropdownFormField._controller.text = value ?? "";
   }
 }

@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 class DropdownFormField extends FormField<String> {
   DropdownFormField(
     List<String> items,
+    String initialValue,
   ) : super(
+          initialValue: initialValue,
           builder: (field) => InputDecorator(
             decoration: InputDecoration(
               labelText: "リスト",

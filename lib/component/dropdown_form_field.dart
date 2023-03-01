@@ -39,4 +39,27 @@ class DropdownFormField extends FormField<String> {
             ),
           ),
         );
+
+  final TextEditingController controller = TextEditingController();
+
+  String? get text => controller.text;
+
+  @override
+  FormFieldState<String> createState() => _DropdownFormFieldState();
+}
+
+class _DropdownFormFieldState extends FormFieldState<String> {
+  DropdownFormField get _dropdownFormField => super.widget as DropdownFormField;
+
+  @override
+  void initState() {
+    super.initState();
+    _dropdownFormField.controller.text = _dropdownFormField.initialValue!;
+  }
+
+  @override
+  void didChange(String? value) {
+    super.didChange(value);
+    _dropdownFormField.controller.text = value!;
+  }
 }

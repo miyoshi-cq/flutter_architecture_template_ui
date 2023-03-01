@@ -4,7 +4,9 @@ class DropdownFormField extends FormField<String> {
   DropdownFormField(
     List<String> items,
     String initialValue,
-  ) : super(
+    TextEditingController controller,
+  )   : _controller = controller,
+        super(
           initialValue: initialValue,
           builder: (field) => InputDecorator(
             decoration: InputDecoration(
@@ -34,15 +36,19 @@ class DropdownFormField extends FormField<String> {
                         )))
                     .toList(),
                 onChanged: field.didChange,
-                value: field.value,
+                value: controller.text,
               ),
             ),
           ),
         );
 
-  final TextEditingController controller = TextEditingController();
+  final TextEditingController _controller;
 
-  String? get text => controller.text;
+  String? get text => _controller.text;
+
+  set text(String? s) {
+    _controller.text = s!;
+  }
 
   @override
   FormFieldState<String> createState() => _DropdownFormFieldState();
@@ -54,12 +60,12 @@ class _DropdownFormFieldState extends FormFieldState<String> {
   @override
   void initState() {
     super.initState();
-    _dropdownFormField.controller.text = _dropdownFormField.initialValue!;
+    _dropdownFormField._controller.text = _dropdownFormField.initialValue!;
   }
 
   @override
   void didChange(String? value) {
     super.didChange(value);
-    _dropdownFormField.controller.text = value!;
+    _dropdownFormField._controller.text = value!;
   }
 }

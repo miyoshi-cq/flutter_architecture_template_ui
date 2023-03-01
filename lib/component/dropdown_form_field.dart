@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class DropdownFormField extends FormField<String> {
-  DropdownFormField(
-    List<String> items,
-    String initialValue,
-    TextEditingController controller,
-  )   : _controller = controller,
+  DropdownFormField({
+    required List<String> items,
+    required String initialValue,
+    required TextEditingController controller,
+  })  : _controller = controller,
         super(
           initialValue: initialValue,
           builder: (field) => InputDecorator(
